@@ -24,13 +24,13 @@ client.on('connected', onConnectedHandler);
 client.connect();
 
 // if you are invisible in steam, this will return no lobby
-async function getSteamAoeLobby() {
-    return await fetch(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${SECRETS.steam.apiKey}&steamids=${SECRETS.steam.userId}`).then(async (response) => {
+async function getSteamJoinableLobbyLink(apiKey, userId) {
+    return await fetch(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${userId}`).then(async (response) => {
         const data = await response.json();
         const players = data.response.players;
         let result = `${players[0].personaname} does not have an open lobby.`;
-        if (players[0] && players[0].lobbysteamid) {
-            result = `steam://joinlobby/${SECRETS.steam.gameIds.aoe2de}/${players[0].lobbysteamid}/${SECRETS.steam.userId}`;
+        if (players[0] && players[0].lobbysteamid && players[0].gameid && players[0].steamid) {
+            result = `steam://joinlobby/${players[0].gameid}/${players[0].lobbysteamid}/${players[0].steamid}`;
         }
         return result;
     }, (error) => {
@@ -50,7 +50,7 @@ function onMessageHandler(target, context, msg, self) {
     console.log('commandName', commandName);
 
     if (commandName.toLowerCase() === '!joinlobby') {
-        getSteamAoeLobby().then((steamJoinLink) => {
+        getSteamJoinableLobbyLink(SECRETS.steam.apiKey, SECRETS.steam.userId).then((steamJoinLink) => {
             client.say(opts.channels[0], 'Copy and paste the below into your browser to join my game directly through steam!!');
             client.say(opts.channels[0], `${steamJoinLink}`);
         });
