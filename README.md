@@ -6,6 +6,8 @@
 -   Windows Key > cmd > Shift Right Click > Open as Administrator
 
 2. Type `git clone https://github.com/Treee/twitch-chat-steam-integration`.
+- If git cannot be found, download [64bit version for your OS](https://git-scm.com/downloads)
+- Accept all defaults.
 
 3. Type `cd twitch-chat-steam-integration`.
 
