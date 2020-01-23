@@ -49,7 +49,7 @@ function onMessageHandler(target, context, msg, self) {
     const commandName = msg.trim();
     console.log('commandName', commandName);
 
-    if (commandName.toLowerCase() === '!joinlobby') {
+    if (commandName.toLowerCase() === '!joinlobby' && context.mod) {
         getSteamJoinableLobbyLink(SECRETS.steam.apiKey, SECRETS.steam.userId).then((steamJoinLink) => {
             client.say(opts.channels[0], 'Copy and paste the below into your browser to join my game directly through steam!!');
             client.say(opts.channels[0], `${steamJoinLink}`);
