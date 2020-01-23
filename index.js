@@ -5,7 +5,7 @@ const SECRETS = require('./secrets');
 // Define configuration options
 const opts = {
     identity: {
-        username: SECRETS.twitch.channelName,
+        username: SECRETS.twitch.botUserName,
         password: SECRETS.twitch.oAuthPassword
     },
     channels: [

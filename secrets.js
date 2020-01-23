@@ -1,7 +1,8 @@
 module.exports = {
     twitch: {
         oAuthPassword: '',
-        channelName: ''
+        channelName: '',
+        botUserName: ''
     },
     steam: {
         gameIds: {
